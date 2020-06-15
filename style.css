@@ -1,8 +1,25 @@
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding: 10px;
+/* General */
+
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 16pt;
+}
+
+.main {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+
+
+
+/* Form */
 
 .add-book {
   margin-bottom: 10px;
@@ -16,4 +33,50 @@ table, th, td {
   background-color: white;
   border: 1px solid #777;
   padding: 10px;
+}
+
+/* Container */
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 0;
+  background-color: #CCC9A1;
+  min-height: 100vh;
+}
+
+/* Card */
+
+.wrapper {
+  padding: 10px;
+  width: 50%;
+}
+@media (min-width: 768px) {
+  .wrapper {
+    width: 25%;
+  }
+}
+@media (min-width: 1200px) {
+  .wrapper {
+    width: 16.66%;
+  }
+}
+
+.card {
+  background-color: #4C230A;
+  color: #F0FFCE;
+  height: 350px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 5px 10px 8px #444;
+}
+
+.card p {
+  margin: 10px;
 }

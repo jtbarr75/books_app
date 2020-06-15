@@ -30,14 +30,16 @@
       <button class="btn" onclick="addBookToLibrary()">Add Book</button>
       <button class="btn cancel" onclick="closeForm()" >Close</button>
     </div>
-    <table id="table">
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Pages</th>
-        <th>Read?</th>
-      </tr>
-    </table>
+    <div id = "main" class="container">
+      <div class="wrapper">
+        <div class="card">
+          <p class="title">Title</p>
+          <p class="author">Author</p>
+          <p class="pages">Pages</p>
+          <p class="read/unread">Read</p>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="book.js" ></script>
 </body>

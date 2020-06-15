@@ -37,21 +37,20 @@ function createDeleteButton(index) {
     deleteBook(this.dataset.index);
     render();
   })
-  container = document.createElement("td");
-  container.appendChild(deleteButton);
-  return container;
+  return deleteButton;
 }
 
-function createBookElement(itemName, index, row) {
-  item = document.createElement("td");
+function createBookElement(itemName, index, card) {
+  item = document.createElement("p");
   item.innerHTML = myLibrary[index][itemName];
   item.id = itemName + index;
+  item.classList.add(itemName);
   console.log(item.id);
-  row.appendChild(item);
+  card.appendChild(item);
 }
 
-function createMarkAsReadButton(index) {
-  container = row.querySelector(`#read${index}`);
+function createMarkAsReadButton(index, card) {
+  container = card.querySelector(`#read${index}`);
   console.log(`read${index}`);
   markButton = document.createElement("input");
   markButton.type = "button";
@@ -66,24 +65,28 @@ function createMarkAsReadButton(index) {
 }
 
 function addRowFromLibrary(index) {
-  row = document.createElement("tr");
+  wrapper = document.createElement("div");
+  wrapper.classList.add("wrapper");
+  card = document.createElement("div");
+  card.classList.add("card");
+  wrapper.appendChild(card);
 
-  createBookElement("title", index, row);
-  createBookElement("author", index, row);
-  createBookElement("pages", index, row);
-  createBookElement("read", index, row);
-  markButton = createMarkAsReadButton(index, row);
-  row.appendChild(markButton);
-  deleteButton = createDeleteButton(index);
-  row.appendChild(deleteButton);
+  createBookElement("title", index, card);
+  createBookElement("author", index, card);
+  // createBookElement("pages", index, content);
+  // createBookElement("read", index, content);
+  // markButton = createMarkAsReadButton(index, content);
+  // content.appendChild(markButton);
+  // deleteButton = createDeleteButton(index);
+  // content.appendChild(deleteButton);
   
-  document.getElementById("table").appendChild(row);
+  document.getElementById("main").appendChild(wrapper);
 }
 
 function render() {
-  table = document.getElementById("table")
-  while (table.childNodes.length > 2) {
-    table.removeChild(table.lastChild);
+  container = document.getElementById("main")
+  while (container.childNodes.length > 2) {
+    container.removeChild(container.lastChild);
   }
   for (let i=0; i<myLibrary.length; i++) {
     addRowFromLibrary(i);
