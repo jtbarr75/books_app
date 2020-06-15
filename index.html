@@ -4,11 +4,12 @@
   <title>Page Title</title>
   <meta charset="UTF-8"/>
   <meta content="initial-scale=1,width=device-width" name="viewport">
+  <link href="reset.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
   <div class="main">
-    <button class="add-book" onclick="openForm()">Add Book</button>
+    <!-- <button class="add-book" onclick="openForm()">Add Book</button> -->
     <div class="form-popup" id="bookForm">
       <h1>Add a Book to the Library</h1>
 
@@ -32,12 +33,12 @@
     </div>
     <div id = "main" class="container">
       <div class="wrapper">
+        <button id="addBookButton" class="add-button" onclick="openForm()">
         <div class="card">
-          <p class="title">Title</p>
-          <p class="author">Author</p>
-          <p class="pages">Pages</p>
-          <p class="read/unread">Read</p>
+          <p>Add Book</p>
+          <div class="plus">+</div>
         </div>
+        </button>
       </div>
     </div>
   </div>

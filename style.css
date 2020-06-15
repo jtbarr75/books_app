@@ -73,10 +73,36 @@ body {
   padding: 20px;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   box-shadow: 5px 10px 8px #444;
+}
+.card:hover {
+  background-color: rgba(76, 35, 10, .7);
 }
 
 .card p {
   margin: 10px;
+  font-size: 16pt;
+}
+
+/* Buttons */
+
+.add-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+}
+
+.plus {
+  font-size: 60px;
+  font-weight: 700;
+  border-radius: 50%;
+  background-color: #A53F2B;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
