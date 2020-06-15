@@ -10,37 +10,51 @@
 <body>
   <div class="main">
     <!-- <button class="add-book" onclick="openForm()">Add Book</button> -->
-    <div class="form-popup" id="bookForm">
-      <h1>Add a Book to the Library</h1>
-
-      <label for="title"><b>Title</b></label>
-      <input type="text" name="title" id="title">
-
-      <label for="author"><b>Author</b></label>
-      <input type="text" name="author" id="author">
-
-      <label for="pages"><b>Pages</b></label>
-      <input type="text" name="pages" id="pages">
-
-      <p>Have you read this book yet?</p>
-      <input type="radio" id="read" name="read" value="true">
-      <label for="read">Yes</label><br>
-      <input type="radio" id="notRead" name="read" value="false">
-      <label for="read">No</label><br>
-
-      <button class="btn" onclick="addBookToLibrary()">Add Book</button>
-      <button class="btn cancel" onclick="closeForm()" >Close</button>
-    </div>
-    <div id = "main" class="container">
+    <div id = "container" class="container">
       <div class="wrapper">
         <button id="addBookButton" class="add-button" onclick="openForm()">
-        <div class="card">
-          <p>Add Book</p>
-          <div class="plus">+</div>
-        </div>
+          <div class="card">
+            <div class="card-front">
+              <p>Add Book</p>
+              <div class="plus">+</div>
+            </div>
+          </div>
         </button>
       </div>
+      <div class="wrapper">
+        <div class="card">
+          <div class="card-front">
+            <p>front of card</p>
+          </div>
+          <div class="card-back">
+            <p>back of card</p>
+          </div>
+      </div>
     </div>
+  </div>
+  <div class="form-popup" id="bookForm">
+    <h1>Add a Book to the Library</h1>
+
+    <label for="title"><b>Title</b></label>
+    <input type="text" name="title" id="title">
+
+    <label for="author"><b>Author</b></label>
+    <input type="text" name="author" id="author">
+
+    <label for="pages"><b>Pages</b></label>
+    <input type="text" name="pages" id="pages">
+
+    <label for="description"><b>Description</b></label>
+    <input type="text" name="description" id="description">
+
+    <p>Have you read this book yet?</p>
+    <input type="radio" id="read" name="read" value="true">
+    <label for="read">Yes</label><br>
+    <input type="radio" id="notRead" name="read" value="false">
+    <label for="read">No</label><br>
+
+    <button class="btn" onclick="addBookToLibrary()">Add Book</button>
+    <button class="btn cancel" onclick="closeForm()" >Close</button>
   </div>
   <script src="book.js" ></script>
 </body>

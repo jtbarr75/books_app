@@ -4,11 +4,12 @@ const book2 = new Book("A Clash of Kings", "George R R Martin", 761 , false);
 const book3 = new Book("A Storm of Swords", "George R R Martin", 973 , false);
 let myLibrary = [book1, book2, book3];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, description) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.description = description;
   this.info = function() {
     return `${title} by ${author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
   }
@@ -17,9 +18,10 @@ function Book(title, author, pages, read) {
 function addBookToLibrary() {
   title = document.getElementById("title").value;
   author = document.getElementById("author").value;
-  pages = document.getElementById("pages").value;
+  pages = document.getElementById("pages").value + " pages";
   read = document.getElementById("read").checked;
-  myLibrary.push(new Book(title, author, pages, read));
+  description = document.getElementById("description").value;
+  myLibrary.push(new Book(title, author, pages, read, description));
   closeForm();
   render();
 }
@@ -45,13 +47,12 @@ function createBookElement(itemName, index, card) {
   item.innerHTML = myLibrary[index][itemName];
   item.id = itemName + index;
   item.classList.add(itemName);
-  console.log(item.id);
   card.appendChild(item);
+  return item;
 }
 
 function createMarkAsReadButton(index, card) {
   container = card.querySelector(`#read${index}`);
-  console.log(`read${index}`);
   markButton = document.createElement("input");
   markButton.type = "button";
   markButton.value = `Mark as ${myLibrary[index].read ? "unread" : "read"}`;
@@ -64,32 +65,41 @@ function createMarkAsReadButton(index, card) {
   return container;
 }
 
-function addRowFromLibrary(index) {
-  wrapper = document.createElement("div");
-  wrapper.classList.add("wrapper");
-  card = document.createElement("div");
-  card.classList.add("card");
-  wrapper.appendChild(card);
+function createItem(element, klass, parent) {
+  item = document.createElement(element);
+  item.classList.add(klass);
+  if (parent) {
+    parent.appendChild(item);
+  }
+  return item;
+}
 
-  createBookElement("title", index, card);
-  createBookElement("author", index, card);
-  // createBookElement("pages", index, content);
-  // createBookElement("read", index, content);
-  // markButton = createMarkAsReadButton(index, content);
-  // content.appendChild(markButton);
-  // deleteButton = createDeleteButton(index);
-  // content.appendChild(deleteButton);
+function addCardFromLibrary(index) {
+  wrapper = createItem("div", "wrapper", false);
+  card = createItem("div", "card", wrapper);
+  card.addEventListener("click", function() {
+    this.classList.contains("flip") ? this.classList.remove("flip") : this.classList.add("flip");
+  })
+  cardFront = createItem("div", "card-front", card);
+  createBookElement("title", index, cardFront);
+  createBookElement("author", index, cardFront);
+
+  cardBack = createItem("div", "card-back", card);
+  createBookElement("title", index, cardBack);
+  createBookElement("author", index, cardBack);
+  createBookElement("pages", index, cardBack);
+  createBookElement("read", index, cardBack);
   
-  document.getElementById("main").appendChild(wrapper);
+  document.getElementById("container").appendChild(wrapper);
 }
 
 function render() {
-  container = document.getElementById("main")
-  while (container.childNodes.length > 2) {
+  container = document.getElementById("container")
+  while (container.childNodes.length > 3) {
     container.removeChild(container.lastChild);
   }
   for (let i=0; i<myLibrary.length; i++) {
-    addRowFromLibrary(i);
+    addCardFromLibrary(i);
   }
 }
 

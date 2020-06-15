@@ -52,6 +52,7 @@ body {
 .wrapper {
   padding: 10px;
   width: 50%;
+  perspective: 1000px;
 }
 @media (min-width: 768px) {
   .wrapper {
@@ -70,20 +71,40 @@ body {
   height: 350px;
   text-align: center;
   border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   box-shadow: 5px 10px 8px #444;
+  position: relative;
+  transition: background-color 0.2s, transform 0.8s, height 0.8s, width 0.8s;
+  transform-style: preserve-3d;
 }
 .card:hover {
-  background-color: rgba(76, 35, 10, .7);
+  background-color: rgba(76, 35, 10, .8);
+}
+
+.flip {
+  transform: rotateY(180deg);
 }
 
 .card p {
   margin: 10px;
   font-size: 16pt;
+}
+
+.card-front, .card-back{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-back {
+  background-color: #A53F2B;
+  color: #280004;
+  border-radius: 10px;
+  transform: rotateY(180deg);
 }
 
 /* Buttons */
