@@ -4,10 +4,18 @@ const book2 = new Book("A Clash of Kings", "George R R Martin", 761 , false);
 const book3 = new Book("A Storm of Swords", "George R R Martin", 973 , false);
 let myLibrary = [book1, book2, book3];
 
+
+document.querySelector(".card-front").addEventListener("click", function() {
+  flip(this.parentElement);
+})
+document.querySelector(".cancel").addEventListener("click", function() {
+  flip(this.closest(".card"));
+})
+
 function Book(title, author, pages, read, description = "") {
   this.title = title;
   this.author = author;
-  this.pages = pages;
+  this.pages = pages + " pages";
   this.read = read;
   this.description = description;
   this.flipped = false;
@@ -19,11 +27,11 @@ function Book(title, author, pages, read, description = "") {
 function addBookToLibrary() {
   title = document.getElementById("title").value;
   author = document.getElementById("author").value;
-  pages = document.getElementById("pages").value + " pages";
+  pages = document.getElementById("pages").value;
   read = document.getElementById("read").checked;
   description = document.getElementById("description").value;
   myLibrary.push(new Book(title, author, pages, read, description));
-  closeForm();
+  flip(document.getElementById("add-book"));
   render();
 }
 
@@ -83,7 +91,6 @@ function addCardFromLibrary(index) {
   
   card.dataset.index = index;
   card.addEventListener("click", function() {
-    console.log("flipped");
     flip(this);
   })
 
@@ -111,7 +118,7 @@ function addCardFromLibrary(index) {
 
 function render() {
   container = document.getElementById("container")
-  while (container.childNodes.length > 3) {
+  while (container.childNodes.length > 2) {
     container.removeChild(container.lastChild);
   }
   for (let i=0; i<myLibrary.length; i++) {
@@ -122,10 +129,14 @@ function render() {
 function flip(item) {
   if (item.classList.contains("flip")) {
     item.classList.remove("flip")
-    myLibrary[item.dataset.index].flipped = false;
+    if (item.dataset.index) {
+        myLibrary[item.dataset.index].flipped = false;
+    }
   } else {
     item.classList.add("flip");
-    myLibrary[item.dataset.index].flipped = true;
+    if (item.dataset.index) {
+      myLibrary[item.dataset.index].flipped = true;
+    }
   }
 }
 
