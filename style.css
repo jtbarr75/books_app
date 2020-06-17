@@ -31,6 +31,7 @@ body {
   display: flex;
   align-items: center;
   max-width: 100%;
+  cursor: auto;
 }
 
 .form-group {
@@ -104,16 +105,17 @@ body {
 }
 .card:hover {
   background-color: rgba(76, 35, 10, .8);
+  cursor: pointer;
 }
 
 .flip {
   transform: rotateY(180deg);
 }
 
-.card p {
+/* .card > * {
   margin: 10px;
   font-size: 16pt;
-}
+} */
 
 .card-front, .card-back{
   position: absolute;
@@ -124,6 +126,10 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.card-front > *, .card-back > * {
+  margin: 10px;
 }
 
 .card-back {
