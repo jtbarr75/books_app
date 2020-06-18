@@ -50,11 +50,25 @@ body {
 
 .form-group input {
   /* margin-left: 5px; */
-  width: 70%;
+  width: 60%;
 }
 
 .form-read {
   justify-content: space-around;
+}
+
+.form-group button, .form-group input[type="button"] {
+  background-color: #A53F2B;
+  color: #F0FFCE;
+  border: none;
+  padding: 7px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.form-group button:hover, .form-group input[type="button"]:hover {
+  background-color: rgba(145, 43, 23, 1);
 }
 
 /* Container */
@@ -112,10 +126,10 @@ body {
   transform: rotateY(180deg);
 }
 
-/* .card > * {
-  margin: 10px;
-  font-size: 16pt;
-} */
+.card-buttons {
+  position: absolute;
+  bottom: -5px;
+}
 
 .card-front, .card-back{
   position: absolute;
@@ -133,8 +147,6 @@ body {
 }
 
 .card-back {
-  /* background-color: #A53F2B; */
-  /* color: #280004; */
   background-color: #4C230A;
   color: #F0FFCE;
   border-radius: 10px;

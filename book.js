@@ -1,13 +1,13 @@
 
 // Book Class
 
-function Book(title, author, pages, read, description = "") {
+function Book(title, author, pages, read, description = "", flipped = false) {
   this.title = title;
   this.author = author;
-  this.pages = pages + " pages";
+  this.pages = pages;
   this.read = read;
   this.description = description;
-  this.flipped = false;
+  this.flipped = flipped;
   this.info = function() {
     return `${title} by ${author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
   }
@@ -15,14 +15,15 @@ function Book(title, author, pages, read, description = "") {
 
 Book.prototype.toggleRead = function() {
   this.read = !this.read;
+  saveLibrary();
 }
 
 // Script
 
 let myLibrary = [];
-const book1 = new Book("A Game of Thrones", "George R R Martin", 694 , true);
-const book2 = new Book("A Clash of Kings", "George R R Martin", 761 , false);
-const book3 = new Book("A Storm of Swords", "George R R Martin", 973 , false);
+const book1 = new Book("A Game of Thrones", "George R R Martin", 694 , true, "The first book of the series A Song of Ice and Fire");
+const book2 = new Book("A Clash of Kings", "George R R Martin", 761 , false, "The second book of the series A Song of Ice and Fire");
+const book3 = new Book("A Storm of Swords", "George R R Martin", 973 , false, "The third book of the series A Song of Ice and Fire");
 myLibrary = [book1, book2, book3];
 loadLibrary();
 
@@ -58,6 +59,7 @@ function flip(item) {
       myLibrary[item.dataset.index].flipped = true;
     }
   }
+  saveLibrary();
 }
 
 // Save/Load
@@ -71,7 +73,7 @@ function loadLibrary() {
     libraryInfo = JSON.parse(localStorage.library);
     for (let i=0; i<libraryInfo.length; i++) {
       book = libraryInfo[i];
-      myLibrary[i] = new Book(book.title, book.author, book.pages, book.read, book.description);
+      myLibrary[i] = new Book(book.title, book.author, book.pages, book.read, book.description, book.flipped);
     }
   }
 }
@@ -85,14 +87,17 @@ function addBookToLibrary() {
   read = document.getElementById("read").checked;
   description = document.getElementById("description").value;
   myLibrary.push(new Book(title, author, pages, read, description));
-  saveLibrary();
+  // saveLibrary();
   flip(document.getElementById("add-book"));
   render();
 }
 
 function createItem(element, klass, parent) {
   item = document.createElement(element);
-  item.classList.add(klass);
+  klassList = klass.split(" ");
+  klassList.forEach(element => {
+    item.classList.add(element);
+  });
   if (parent) {
     parent.appendChild(item);
   }
@@ -116,6 +121,9 @@ function createDeleteButton(index, card) {
 function createBookElement(itemName, index, card) {
   item = document.createElement("p");
   item.innerHTML = myLibrary[index][itemName];
+  if (itemName == "pages") {
+    item.innerHTML = item.innerHTML + " pages";
+  }
   item.id = itemName + index;
   item.classList.add(itemName);
   card.appendChild(item);
@@ -128,24 +136,28 @@ function createMarkAsReadButton(index, card) {
   markButton.value = `Mark as ${myLibrary[index].read ? "unread" : "read"}`;
   markButton.addEventListener("click", function() {
     event.stopPropagation();
-    myLibrary[this.closest(".card").dataset.index].toggleRead();
-    render();
+    card = this.closest(".card");
+    myLibrary[card.dataset.index].toggleRead();
+    this.value = `Mark as ${myLibrary[card.dataset.index].read ? "unread" : "read"}`;
+    addReadClass(card.dataset.index, card);
+    addReadClass(card.dataset.index, card.querySelector(".card-back"));
+    // render();
   })
   card.appendChild(markButton);
   return markButton;
 }
 
 function addButtons(index, parent) {
-  read = document.createElement("p");
-  read.innerHTML = myLibrary[index]["read"] ? "I've read this book" : "I haven't read this yet";
-  parent.appendChild(read);
-  createMarkAsReadButton(index, parent);
-  createDeleteButton(index, parent);
+  container = createItem("div", "form-group card-buttons", parent);
+  createMarkAsReadButton(index, container);
+  createDeleteButton(index, container);
 }
 
 function addReadClass(index, element) {
   if (myLibrary[index].read) {
     element.classList.add("read");
+  } else {
+    element.classList.remove("read");
   }
 }
 
