@@ -161,6 +161,10 @@ body {
   background-color: rgb(94, 144, 109);
 }
 
+.description {
+  margin-bottom: 45px;
+}
+
 /* Buttons */
 
 .add-button {
