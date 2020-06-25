@@ -1,21 +1,24 @@
 
 // Book Class
 
-function Book(title, author, pages, read, description = "", flipped = false) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.description = description;
-  this.flipped = flipped;
-  this.info = function() {
-    return `${title} by ${author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
+class Book {
+  constructor(title, author, pages, read, description = "", flipped = false) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.description = description;
+    this.flipped = flipped;
   }
-}
 
-Book.prototype.toggleRead = function() {
-  this.read = !this.read;
-  saveLibrary();
+  info() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read yet"}`;
+  }
+  
+  toggleRead() {
+    this.read = !this.read;
+    saveLibrary();
+  }
 }
 
 // Script
