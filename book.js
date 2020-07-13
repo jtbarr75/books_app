@@ -33,8 +33,13 @@ loadLibrary();
 document.querySelector(".card-front").addEventListener("click", function() {
   flip(this.parentElement);
 })
-document.querySelector(".cancel").addEventListener("click", function() {
+document.querySelector(".cancel").addEventListener("click", function(e) {
+  e.preventDefault();
   flip(this.closest(".card"));
+})
+document.querySelector(".form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  addBookToLibrary();
 })
 
 render();
@@ -84,11 +89,23 @@ function loadLibrary() {
 // Helpers
 
 function addBookToLibrary() {
-  title = document.getElementById("title").value;
-  author = document.getElementById("author").value;
-  pages = document.getElementById("pages").value;
-  read = document.getElementById("read").checked;
-  description = document.getElementById("description").value;
+  var title = document.getElementById("title");
+  if (!title.checkValidity()) {
+    return;
+  }
+  title = title.value;
+  const author = document.getElementById("author").value;
+  var pages = document.getElementById("pages");
+  if (!pages.checkValidity()) {
+    return;
+  }
+  pages = pages.value;
+  var read = document.getElementById("read");
+  if (!read.checkValidity()) {
+    return;
+  }
+  read = read.checked
+  const description = document.getElementById("description").value;
   myLibrary.push(new Book(title, author, pages, read, description));
   // saveLibrary();
   flip(document.getElementById("add-book"));
